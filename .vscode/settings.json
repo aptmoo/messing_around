@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.qh": "quakec",
+        "cstdint": "cpp",
+        "string": "cpp"
+    }
+}
