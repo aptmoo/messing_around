@@ -16,7 +16,7 @@ void Game::OnUpdate(double dt)
 
 }
 
-void Game::OnRender()
+void Game::OnRender(const Renderer3D &renderer)
 {
     DrawGrid(20, 10);
 }

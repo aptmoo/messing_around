@@ -10,15 +10,17 @@ endif
 
 ifeq ($(config),debug)
   App_config = debug
+  Editor_config = debug
 
 else ifeq ($(config),release)
   App_config = release
+  Editor_config = release
 
 else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := App
+PROJECTS := App Editor
 
 .PHONY: all clean help $(PROJECTS) 
 
@@ -30,8 +32,15 @@ ifneq (,$(App_config))
 	@${MAKE} --no-print-directory -C . -f App.make config=$(App_config)
 endif
 
+Editor:
+ifneq (,$(Editor_config))
+	@echo "==== Building Editor ($(Editor_config)) ===="
+	@${MAKE} --no-print-directory -C . -f Editor.make config=$(Editor_config)
+endif
+
 clean:
 	@${MAKE} --no-print-directory -C . -f App.make clean
+	@${MAKE} --no-print-directory -C . -f Editor.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -44,5 +53,6 @@ help:
 	@echo "   all (default)"
 	@echo "   clean"
 	@echo "   App"
+	@echo "   Editor"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

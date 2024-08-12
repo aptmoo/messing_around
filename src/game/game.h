@@ -1,5 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
+#include "common/renderer3D.h"
 
 enum class GameState
 {
@@ -14,7 +15,7 @@ public:
     ~Game();
 
     void OnUpdate(double dt);
-    void OnRender();
+    void OnRender(const Renderer3D& renderer);
 
     void SetState(GameState state) { m_State = state; };
     GameState GetState() { return m_State; };

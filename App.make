@@ -65,11 +65,15 @@ GENERATED += $(OBJDIR)/draggableWindow.o
 GENERATED += $(OBJDIR)/game.o
 GENERATED += $(OBJDIR)/main.o
 GENERATED += $(OBJDIR)/raygui.o
+GENERATED += $(OBJDIR)/renderer3D.o
+GENERATED += $(OBJDIR)/renderutils.o
 OBJECTS += $(OBJDIR)/application.o
 OBJECTS += $(OBJDIR)/draggableWindow.o
 OBJECTS += $(OBJDIR)/game.o
 OBJECTS += $(OBJDIR)/main.o
 OBJECTS += $(OBJDIR)/raygui.o
+OBJECTS += $(OBJDIR)/renderer3D.o
+OBJECTS += $(OBJDIR)/renderutils.o
 
 # Rules
 # #############################################
@@ -133,19 +137,25 @@ endif
 # File Rules
 # #############################################
 
-$(OBJDIR)/application.o: src/core/application.cpp
+$(OBJDIR)/renderer3D.o: src/common/renderer3D.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/draggableWindow.o: src/core/draggableWindow.cpp
-	@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/main.o: src/core/main.cpp
-	@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/raygui.o: src/core/raygui.cpp
+$(OBJDIR)/renderutils.o: src/common/renderutils.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/game.o: src/game/game.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/application.o: src/runtime/application.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/main.o: src/runtime/main.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/draggableWindow.o: src/ui/draggableWindow.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/raygui.o: src/ui/raygui.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
