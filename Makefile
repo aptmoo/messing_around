@@ -9,27 +9,29 @@ ifndef verbose
 endif
 
 ifeq ($(config),debug)
-  App_config = debug
+  GameRuntime_config = debug
   Editor_config = debug
+  Sandbox_config = debug
 
 else ifeq ($(config),release)
-  App_config = release
+  GameRuntime_config = release
   Editor_config = release
+  Sandbox_config = release
 
 else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := App Editor
+PROJECTS := GameRuntime Editor Sandbox
 
 .PHONY: all clean help $(PROJECTS) 
 
 all: $(PROJECTS)
 
-App:
-ifneq (,$(App_config))
-	@echo "==== Building App ($(App_config)) ===="
-	@${MAKE} --no-print-directory -C . -f App.make config=$(App_config)
+GameRuntime:
+ifneq (,$(GameRuntime_config))
+	@echo "==== Building GameRuntime ($(GameRuntime_config)) ===="
+	@${MAKE} --no-print-directory -C . -f GameRuntime.make config=$(GameRuntime_config)
 endif
 
 Editor:
@@ -38,9 +40,16 @@ ifneq (,$(Editor_config))
 	@${MAKE} --no-print-directory -C . -f Editor.make config=$(Editor_config)
 endif
 
+Sandbox:
+ifneq (,$(Sandbox_config))
+	@echo "==== Building Sandbox ($(Sandbox_config)) ===="
+	@${MAKE} --no-print-directory -C . -f Sandbox.make config=$(Sandbox_config)
+endif
+
 clean:
-	@${MAKE} --no-print-directory -C . -f App.make clean
+	@${MAKE} --no-print-directory -C . -f GameRuntime.make clean
 	@${MAKE} --no-print-directory -C . -f Editor.make clean
+	@${MAKE} --no-print-directory -C . -f Sandbox.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -52,7 +61,8 @@ help:
 	@echo "TARGETS:"
 	@echo "   all (default)"
 	@echo "   clean"
-	@echo "   App"
+	@echo "   GameRuntime"
 	@echo "   Editor"
+	@echo "   Sandbox"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

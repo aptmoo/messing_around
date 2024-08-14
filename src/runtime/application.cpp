@@ -7,7 +7,7 @@ RuntimeApplication* RuntimeApplication::s_Instance = nullptr;
 
 RuntimeApplication::RuntimeApplication(const AppDesc& desc)
 {
-    s_Instance = this;
+    SetInstance(this);
     m_Desc = desc;
 
     InitWindow(desc.Width, desc.Height, desc.Name.c_str());
@@ -27,7 +27,7 @@ void RuntimeApplication::Run()
     m_IsRunning = true;
 
 
-    while (!WindowShouldClose())
+    while (!WindowShouldClose() && m_IsRunning)
     {
         OnUpdate();
         OnRender();

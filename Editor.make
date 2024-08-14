@@ -19,7 +19,7 @@ endif
 # #############################################
 
 RESCOMP = windres
-TARGETDIR = bin/tools
+TARGETDIR = bin
 TARGET = $(TARGETDIR)/Editor
 INCLUDES += -Isrc
 FORCE_INCLUDE +=
@@ -60,20 +60,22 @@ endif
 GENERATED :=
 OBJECTS :=
 
+GENERATED += $(OBJDIR)/app.o
 GENERATED += $(OBJDIR)/application.o
+GENERATED += $(OBJDIR)/args.o
+GENERATED += $(OBJDIR)/contentmanager.o
 GENERATED += $(OBJDIR)/draggableWindow.o
-GENERATED += $(OBJDIR)/game.o
 GENERATED += $(OBJDIR)/main.o
 GENERATED += $(OBJDIR)/raygui.o
-GENERATED += $(OBJDIR)/renderer3D.o
-GENERATED += $(OBJDIR)/renderutils.o
+GENERATED += $(OBJDIR)/spritesheet.o
+OBJECTS += $(OBJDIR)/app.o
 OBJECTS += $(OBJDIR)/application.o
+OBJECTS += $(OBJDIR)/args.o
+OBJECTS += $(OBJDIR)/contentmanager.o
 OBJECTS += $(OBJDIR)/draggableWindow.o
-OBJECTS += $(OBJDIR)/game.o
 OBJECTS += $(OBJDIR)/main.o
 OBJECTS += $(OBJDIR)/raygui.o
-OBJECTS += $(OBJDIR)/renderer3D.o
-OBJECTS += $(OBJDIR)/renderutils.o
+OBJECTS += $(OBJDIR)/spritesheet.o
 
 # Rules
 # #############################################
@@ -137,19 +139,22 @@ endif
 # File Rules
 # #############################################
 
-$(OBJDIR)/renderer3D.o: src/common/renderer3D.cpp
+$(OBJDIR)/app.o: src/common/app.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/renderutils.o: src/common/renderutils.cpp
+$(OBJDIR)/args.o: src/common/args.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/contentmanager.o: src/common/contentmanager.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/spritesheet.o: src/common/spritesheet.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/application.o: src/editor/application.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/main.o: src/editor/main.cpp
-	@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/game.o: src/game/game.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/draggableWindow.o: src/ui/draggableWindow.cpp

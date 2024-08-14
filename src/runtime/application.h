@@ -2,32 +2,21 @@
 #define CORE_APPLICATION_H
 #include <string>
 #include "common/types.h"
-#include "game/game.h"
+#include "common/app.h"
 
-struct AppDesc
-{
-    std::string Name = "DefaultName";
-    int Width = 1280;
-    int Height = 720;
-};
-
-class RuntimeApplication
+class RuntimeApplication : public IApplication
 {
 public:
     RuntimeApplication(const AppDesc& desc = AppDesc());
     ~RuntimeApplication();
 
-    RuntimeApplication& Get(){ return *s_Instance; }
-
-    void Run();
+    virtual void Run() override;
+    virtual void Shutdown() override { m_IsRunning = false; }
 private:
     void OnUpdate();
     void OnRender();
 
     AppDesc m_Desc;
-
-    Game m_Game;
-
     static RuntimeApplication* s_Instance;
     bool m_IsRunning = false;
 };
