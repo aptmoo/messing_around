@@ -8,6 +8,12 @@ int main(int argc, char const *argv[])
 {
     InitWindow(1280, 720, "Sandbox");
 
+    Camera2D cam;
+    cam.target = Vector2Zero();
+    cam.offset = Vector2Zero();
+    cam.rotation = 0.0f;
+    cam.zoom = 1.0f;
+
     ContentManager content;
     Ref<Image> img1 = content.Load<Image>("./content/tilemaps/tilemap.png");
 
@@ -19,10 +25,14 @@ int main(int argc, char const *argv[])
 
     while (!WindowShouldClose())
     {
-        rotation++;
+        rotation += 45 *GetFrameTime();
+
         BeginDrawing();
-        ClearBackground(GRAY);
-        sheet.Draw(8, 2, GetMousePosition(), {5, 10}, 0);
+            ClearBackground(GRAY);
+            BeginMode2D(cam);
+                sheet.Draw(8, 2, GetMousePosition(), {5, 10}, rotation);
+                sheet2.Draw(8, 2, GetMousePosition(), {10,5}, rotation);
+            EndMode2D();
         EndDrawing();
     }
     

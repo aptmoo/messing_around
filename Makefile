@@ -9,11 +9,13 @@ ifndef verbose
 endif
 
 ifeq ($(config),debug)
+  shared_config = debug
   GameRuntime_config = debug
   Editor_config = debug
   Sandbox_config = debug
 
 else ifeq ($(config),release)
+  shared_config = release
   GameRuntime_config = release
   Editor_config = release
   Sandbox_config = release
@@ -22,34 +24,41 @@ else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := GameRuntime Editor Sandbox
+PROJECTS := shared GameRuntime Editor Sandbox
 
 .PHONY: all clean help $(PROJECTS) 
 
 all: $(PROJECTS)
 
-GameRuntime:
+shared:
+ifneq (,$(shared_config))
+	@echo "==== Building shared ($(shared_config)) ===="
+	@${MAKE} --no-print-directory -C buildscripts -f shared.make config=$(shared_config)
+endif
+
+GameRuntime: shared
 ifneq (,$(GameRuntime_config))
 	@echo "==== Building GameRuntime ($(GameRuntime_config)) ===="
-	@${MAKE} --no-print-directory -C . -f GameRuntime.make config=$(GameRuntime_config)
+	@${MAKE} --no-print-directory -C buildscripts -f GameRuntime.make config=$(GameRuntime_config)
 endif
 
-Editor:
+Editor: shared
 ifneq (,$(Editor_config))
 	@echo "==== Building Editor ($(Editor_config)) ===="
-	@${MAKE} --no-print-directory -C . -f Editor.make config=$(Editor_config)
+	@${MAKE} --no-print-directory -C buildscripts -f Editor.make config=$(Editor_config)
 endif
 
-Sandbox:
+Sandbox: shared
 ifneq (,$(Sandbox_config))
 	@echo "==== Building Sandbox ($(Sandbox_config)) ===="
-	@${MAKE} --no-print-directory -C . -f Sandbox.make config=$(Sandbox_config)
+	@${MAKE} --no-print-directory -C buildscripts -f Sandbox.make config=$(Sandbox_config)
 endif
 
 clean:
-	@${MAKE} --no-print-directory -C . -f GameRuntime.make clean
-	@${MAKE} --no-print-directory -C . -f Editor.make clean
-	@${MAKE} --no-print-directory -C . -f Sandbox.make clean
+	@${MAKE} --no-print-directory -C buildscripts -f shared.make clean
+	@${MAKE} --no-print-directory -C buildscripts -f GameRuntime.make clean
+	@${MAKE} --no-print-directory -C buildscripts -f Editor.make clean
+	@${MAKE} --no-print-directory -C buildscripts -f Sandbox.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -61,6 +70,7 @@ help:
 	@echo "TARGETS:"
 	@echo "   all (default)"
 	@echo "   clean"
+	@echo "   shared"
 	@echo "   GameRuntime"
 	@echo "   Editor"
 	@echo "   Sandbox"
