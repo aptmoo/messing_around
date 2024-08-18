@@ -17,8 +17,10 @@ int main(int argc, char const *argv[])
     ContentManager content;
     Ref<Image> img1 = content.Load<Image>("./content/tilemaps/tilemap.png");
 
-    SpriteSheet sheet(*img1, 18, 18, 20, 9, 1);
-    SpriteSheet sheet2(LoadImage("./content/tilemaps/tilemap_packed.png"), 18, 18, 20, 9, 0);
+    SpriteSheetDesc sheetDesc = {{18, 18}, {20, 9}, 1};
+    SpriteSheet sheet(*img1, sheetDesc);
+    SpriteSheetDesc sheetDesc2 = {{18, 18}, {20, 9}, 0};
+    SpriteSheet sheet2(LoadImage("./content/tilemaps/tilemap_packed.png"),sheetDesc2);
 
     Ref<Texture2D> tex = content.Load<Texture>("./content/tilemaps/tilemap.png");
     float rotation = 0;

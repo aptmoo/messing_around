@@ -1,12 +1,13 @@
 #include "spritesheet.h"
 
-SpriteSheet::SpriteSheet(const Image &image, int spriteWidth, int spriteHeight, int sheetWidth, int sheetHeight, int offset)
+SpriteSheet::SpriteSheet(const Image& image, const SpriteSheetDesc& desc)
 {
-    m_SpriteOffset = offset;
+    m_SpriteOffset = desc.offset;
     m_Sheet = LoadTextureFromImage(image);
-    m_SpriteSize = {spriteWidth, spriteHeight};
-    m_SheetSize = {sheetWidth, sheetHeight};
+    m_SpriteSize = desc.spriteSize;
+    m_SheetSize = desc.sheetSize;
 }
+
 
 SpriteSheet::~SpriteSheet()
 {

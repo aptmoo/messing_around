@@ -21,7 +21,7 @@ Scope<T> MakeScope(TArgs&&... args)
     return std::make_unique<T>(std::forward<TArgs>(args)...);
 }
 
-struct SizeI
+struct Size2D
 {
     int x, y;
 };
