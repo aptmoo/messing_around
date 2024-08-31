@@ -6,6 +6,8 @@ SpriteSheet::SpriteSheet(const Image& image, const SpriteSheetDesc& desc)
     m_Sheet = LoadTextureFromImage(image);
     m_SpriteSize = desc.spriteSize;
     m_SheetSize = desc.sheetSize;
+
+    TraceLog(LOG_INFO, "Load tilemap %s", desc.name.c_str());
 }
 
 

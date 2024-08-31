@@ -6,6 +6,7 @@
 
 struct SpriteSheetDesc
 {
+    std::string name;
     Size2D spriteSize;
     Size2D sheetSize;
     int offset;

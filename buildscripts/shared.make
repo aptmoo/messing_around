@@ -62,7 +62,6 @@ OBJECTS :=
 
 GENERATED += $(OBJDIR)/app.o
 GENERATED += $(OBJDIR)/args.o
-GENERATED += $(OBJDIR)/asset_spritesheet.o
 GENERATED += $(OBJDIR)/contentmanager.o
 GENERATED += $(OBJDIR)/draggableWindow.o
 GENERATED += $(OBJDIR)/json.o
@@ -70,7 +69,6 @@ GENERATED += $(OBJDIR)/raygui.o
 GENERATED += $(OBJDIR)/spritesheet.o
 OBJECTS += $(OBJDIR)/app.o
 OBJECTS += $(OBJDIR)/args.o
-OBJECTS += $(OBJDIR)/asset_spritesheet.o
 OBJECTS += $(OBJDIR)/contentmanager.o
 OBJECTS += $(OBJDIR)/draggableWindow.o
 OBJECTS += $(OBJDIR)/json.o
@@ -143,9 +141,6 @@ $(OBJDIR)/app.o: ../src/common/app.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/args.o: ../src/common/args.cpp
-	@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/asset_spritesheet.o: ../src/common/assetFormats/asset_spritesheet.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/contentmanager.o: ../src/common/contentmanager.cpp

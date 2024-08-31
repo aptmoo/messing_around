@@ -23,7 +23,18 @@ Scope<T> MakeScope(TArgs&&... args)
 
 struct Size2D
 {
-    int x, y;
+    union
+    {
+        int data[2];
+        struct
+        {
+            int x, y;
+        };
+        struct
+        {
+            int width, height;
+        };
+    };
 };
 
 #endif
